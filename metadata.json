@@ -1,0 +1,8 @@
+{
+  "name": "Command Runner",
+  "description": "Run shell scripts from the top panel",
+  "version": 1,
+  "shell-version": ["3.36"],
+  "url": "https://github.com/Achu1ahm/command-runner",
+  "uuid": "command-runner@asfaq_ahmed"
+}
