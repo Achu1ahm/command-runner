@@ -14,7 +14,6 @@ const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
-const Gtk = imports.gi.Gtk;
 
 let commandRunner;
 
@@ -31,34 +30,6 @@ function _ensureScriptsFolder() {
   }
 
   return true;
-}
-
-function _openFolderSelection() {
-  // Close the menu before opening the dialog
-  commandRunner.menu.close();
-
-  GLib.idle_add(GLib.PRIORITY_DEFAULT, () => {
-    const dialog = new Gtk.FileChooserDialog({
-      title: "Select Scripts Folder",
-      action: Gtk.FileChooserAction.SELECT_FOLDER,
-    });
-
-    dialog.add_button(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL);
-    dialog.add_button(Gtk.STOCK_OPEN, Gtk.ResponseType.ACCEPT);
-
-    dialog.connect("response", (dialog, responseId) => {
-      if (responseId === Gtk.ResponseType.ACCEPT) {
-        const folderPath = dialog.get_file().get_path();
-        if (_saveFolderPath(folderPath)) {
-          _refreshMenu(folderPath);
-        }
-      }
-      dialog.destroy();
-    });
-
-    dialog.show();
-    return false;
-  });
 }
 
 function _refreshMenu() {
@@ -131,12 +102,9 @@ function _refreshMenu() {
   }
 }
 
-function init() {
-
-}
+function init() {}
 
 function enable() {
-
   commandRunner = new PanelMenu.Button(0.0, "Command Runner", false);
 
   const icon = new St.Icon({
@@ -157,7 +125,6 @@ function enable() {
 }
 
 function disable() {
-
   if (commandRunner) {
     commandRunner.destroy();
     commandRunner = null;
